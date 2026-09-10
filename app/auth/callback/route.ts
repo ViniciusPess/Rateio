@@ -8,10 +8,11 @@ export async function GET(request: NextRequest) {
   const flowId = url.searchParams.get("sb_flow_id");
   const nextValue = url.searchParams.get("next");
   const next = nextValue?.startsWith("/") && !nextValue.startsWith("//") ? nextValue : "/";
+  const destination = next === "/" ? "/auth/continuar" : next;
 
   if (code) {
     const { url: supabaseUrl, publishableKey } = publicSupabaseConfig();
-    const redirectResponse = NextResponse.redirect(new URL(next, url.origin));
+    const redirectResponse = NextResponse.redirect(new URL(destination, url.origin), 303);
     const supabase = createServerClient(supabaseUrl, publishableKey, {
       cookies: {
         getAll: () => request.cookies.getAll(),
