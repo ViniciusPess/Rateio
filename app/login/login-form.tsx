@@ -22,7 +22,7 @@ export function LoginForm() {
       const { error: googleError } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?next=/`,
+          redirectTo: "https://rateio-vinicius.netlify.app/auth/callback?next=/",
         },
       });
       if (googleError) throw googleError;
