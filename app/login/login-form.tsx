@@ -12,6 +12,26 @@ export function LoginForm() {
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  async function signInWithGoogle() {
+    setLoading(true);
+    setError(null);
+    setMessage(null);
+
+    try {
+      const supabase = createClient();
+      const { error: googleError } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback?next=/`,
+        },
+      });
+      if (googleError) throw googleError;
+    } catch (cause) {
+      setError(authErrorMessage(cause));
+      setLoading(false);
+    }
+  }
+
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
@@ -67,6 +87,13 @@ export function LoginForm() {
       </div>
       <h2 id="auth-title">{mode === "login" ? "Bem-vindo de volta" : mode === "signup" ? "Crie seu Rateio" : "Recupere seu acesso"}</h2>
       <p>{mode === "login" ? "Entre com seu e-mail e senha." : mode === "signup" ? "Sua conta já nasce com um espaço de dados isolado." : "Enviaremos um link seguro para o seu e-mail."}</p>
+      {mode !== "recovery" && <>
+        <button className="google-auth-button" type="button" onClick={() => void signInWithGoogle()} disabled={loading}>
+          {loading ? <Loader2 className="spinner-inline" /> : <GoogleMark />}
+          Continuar com Google
+        </button>
+        <div className="auth-divider"><span>ou use seu e-mail</span></div>
+      </>}
       <form className="form-stack" onSubmit={submit}>
         {mode === "signup" && <label>Seu nome<input name="name" autoComplete="name" required minLength={2} maxLength={80} /></label>}
         <label>E-mail<input name="email" type="email" autoComplete="email" required /></label>
@@ -82,6 +109,17 @@ export function LoginForm() {
       </form>
       <small>Participantes não precisam criar conta. Eles entram somente pelo link pessoal enviado pelo administrador.</small>
     </section>
+  );
+}
+
+function GoogleMark() {
+  return (
+    <svg className="google-mark" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="#4285f4" d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.9h5.4a4.6 4.6 0 0 1-2 3v2.5h3.3c1.9-1.8 2.9-4.4 2.9-7.4Z" />
+      <path fill="#34a853" d="M12 22c2.7 0 5-.9 6.7-2.4l-3.3-2.5c-.9.6-2.1 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3v2.6A10 10 0 0 0 12 22Z" />
+      <path fill="#fbbc05" d="M6.4 14a6 6 0 0 1 0-3.9V7.4H3a10 10 0 0 0 0 9.2L6.4 14Z" />
+      <path fill="#ea4335" d="M12 5.9c1.5 0 2.9.5 3.9 1.5l2.9-2.8A9.8 9.8 0 0 0 3 7.4l3.4 2.7C7.2 7.7 9.4 6 12 6Z" />
+    </svg>
   );
 }
 
