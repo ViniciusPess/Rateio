@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
 
   if (code) {
     const { url: supabaseUrl, publishableKey } = publicSupabaseConfig();
-    const redirectResponse = NextResponse.redirect(new URL(destination, url.origin), 303);
+    const redirectResponse = NextResponse.redirect(new URL(destination, "https://rateio-vinicius.netlify.app"), 303);
     const supabase = createServerClient(supabaseUrl, publishableKey, {
       cookies: {
         getAll: () => request.cookies.getAll(),
@@ -28,5 +28,5 @@ export async function GET(request: NextRequest) {
     if (!error) return redirectResponse;
   }
 
-  return NextResponse.redirect(new URL("/login?erro=oauth", url.origin));
+  return NextResponse.redirect(new URL("/login?erro=oauth", "https://rateio-vinicius.netlify.app"));
 }
