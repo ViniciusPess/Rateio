@@ -5,9 +5,9 @@ export const metadata: Metadata = {
   title: "Rateio — Assinaturas compartilhadas",
   description: "Gerencie cobranças, pagamentos e participantes das suas assinaturas compartilhadas.",
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
-    apple: "/apple-icon",
+    icon: "/rateio-app-icon.png",
+    shortcut: "/rateio-app-icon.png",
+    apple: "/apple-icon.png",
   },
 };
 

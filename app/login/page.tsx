@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Image from "next/image";
 import { LoginForm } from "@/app/login/login-form";
 import { getAdminContext } from "@/lib/auth";
 
@@ -10,7 +11,7 @@ export default async function LoginPage() {
   return (
     <main className="auth-page">
       <section className="auth-copy">
-        <div className="brand"><span className="brand-mark">R</span><span>Rateio</span></div>
+        <Image className="auth-wordmark" src="/rateio-logo.png" alt="Rateio" width={228} height={64} sizes="(max-width: 700px) 190px, 220px" priority />
         <p className="eyebrow">Assinaturas compartilhadas</p>
         <h1>Organize cobranças sem transformar amizade em planilha.</h1>
         <p>Você administra tudo em uma conta privada. Cada participante recebe um link pessoal, sem cadastro e sem senha.</p>

@@ -64,7 +64,7 @@ export function ParticipantPortal({ token }: { token: string }) {
   return (
     <main className="public-portal">
       <header className="public-header">
-        <div className="brand"><span className="brand-mark">R</span><span>Rateio</span></div>
+        <div className="brand"><span className="brand-mark" aria-hidden="true" /><span>Rateio</span></div>
         <label className="month-control"><span>Mês</span><input type="month" value={month} onChange={(event) => setMonth(event.target.value)} /></label>
       </header>
       <section className="public-content">

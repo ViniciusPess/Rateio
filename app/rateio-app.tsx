@@ -142,7 +142,7 @@ export function RateioApp() {
   return (
     <main className="app-shell">
       <aside className="sidebar">
-        <div className="brand"><span className="brand-mark">R</span><span>Rateio</span></div>
+        <div className="brand"><span className="brand-mark" aria-hidden="true" /><span>Rateio</span></div>
         <nav aria-label="Navegação principal">
           {nav.map(([value, label, Icon]) => <button key={value} className={`nav-item ${tab === value ? "active" : ""}`} onClick={() => setTab(value)}><Icon />{label}</button>)}
         </nav>
@@ -156,7 +156,7 @@ export function RateioApp() {
             <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
               <SheetTrigger asChild><Button className="menu-button" size="icon" variant="outline" aria-label="Abrir menu"><Menu /></Button></SheetTrigger>
               <SheetContent side="left" className="nav-sheet" showCloseButton={false}>
-                <SheetHeader className="nav-sheet-header"><SheetTitle><span className="brand-mark">R</span> Rateio</SheetTitle><SheetDescription>Menu principal</SheetDescription><SheetClose asChild><Button className="nav-close" size="icon" variant="ghost" aria-label="Fechar menu"><X /></Button></SheetClose></SheetHeader>
+                <SheetHeader className="nav-sheet-header"><SheetTitle><span className="brand-mark" aria-hidden="true" /> Rateio</SheetTitle><SheetDescription>Menu principal</SheetDescription><SheetClose asChild><Button className="nav-close" size="icon" variant="ghost" aria-label="Fechar menu"><X /></Button></SheetClose></SheetHeader>
                 <nav aria-label="Navegação completa">
                   {nav.map(([value, label, Icon]) => <button key={value} className={`nav-item ${tab === value ? "active" : ""}`} onClick={() => { setTab(value); setMenuOpen(false); }}><Icon />{label}</button>)}
                 </nav>
@@ -187,7 +187,7 @@ export function RateioApp() {
   );
 }
 
-function LoadingScreen() { return <main className="state-screen"><div className="brand"><span className="brand-mark">R</span><span>Rateio</span></div><Loader2 className="spinner" /><h1>Carregando seus rateios</h1><p>Estamos buscando cobranças e pagamentos.</p></main>; }
+function LoadingScreen() { return <main className="state-screen"><div className="brand"><span className="brand-mark" aria-hidden="true" /><span>Rateio</span></div><Loader2 className="spinner" /><h1>Carregando seus rateios</h1><p>Estamos buscando cobranças e pagamentos.</p></main>; }
 function ErrorScreen({ message, retry }: { message: string; retry: () => void }) { return <main className="state-screen"><span className="state-icon error"><AlertTriangle /></span><h1>Não foi possível abrir o Rateio</h1><p>{message}</p><Button onClick={retry}>Tentar novamente</Button></main>; }
 
 function DemoBar({ actor, onSwitch }: { actor: Actor; onSwitch: (id: string) => void }) {
